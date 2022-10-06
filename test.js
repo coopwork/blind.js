@@ -1,5 +1,5 @@
-let buttonUp2 = document.querySelector('#btn');
+// let buttonUp2 = document.querySelector('#btn');
 
-buttonUp2.addEventListener('click', ()=>{
+// buttonUp2.addEventListener('click', ()=>{
 
-})
+// })

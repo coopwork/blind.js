@@ -1,5 +1,6 @@
 let allElements = document.querySelectorAll('*');
-let buttonUp = document.querySelector('#btn');
+let buttonInc = document.querySelector('#blind_text_increment');
+let buttonDec = document.querySelector('#blind_text_decrement');
 
 // console.log('all elements:', allElements);
 
@@ -32,8 +33,29 @@ function getFontSize(element){
   return fontSize;
 }
 
-buttonUp.addEventListener('click', ()=>{
+function fontCounter(number, increment) {
+  
+  if (number < 6 && increment == true) {
+    return +number + 2;
+  }else if (number > 0 && increment == false) {
+    return +number - 2;
+  } else {
+    return number
+  }
+}
+
+buttonInc.addEventListener('click', ()=>{
   elementsFinder(allElements)
+
+  localStorage.setItem('click', fontCounter(localStorage.getItem('click'), true));
+})
+
+buttonDec.addEventListener('click', ()=>{
+  elementsFinder(allElements)
+  if (!localStorage.getItem('click')) {
+    localStorage.setItem('click', '0');
+  }
+  localStorage.setItem('click', fontCounter(localStorage.getItem('click'), false));
 })
 
 function createStyleTag() {
