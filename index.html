@@ -46,21 +46,37 @@
   </div>
 
   <button id="blind_run">RUNSTART</button>
-  <button id="blind_quit">BLINDQUIT</button>
 
-  <input type="range" name="" id="blind_text_zoom" min="100" max="125" value="100">
+  <div id="_blind__dashboard" class="">
+    <div onclick="switchDashboard()" class="_blind__dashboard__icon">
+      X
+    </div>
 
-  <button id="blind_text_increment">upper text</button>
-  <button id="blind_text_decrement">lower text</button>
-  <button id="blind_scheme_default">Cheme: default</button>
-  <button id="blind_scheme_dark">Cheme: dark</button>
-  <button id="blind_scheme_blue">Cheme: blue</button>
-  <button id="blind_scheme_brown">Cheme: brown</button>
-  <button id="blind_scheme_greenBrown">Cheme: greenBrown</button>
-  <button id="blind_images_bw">B/W Images</button>
-  <button id="blind_images_remove">Remove Images</button>
-  <button id="blind_images_default">Default Images</button>
-  <button id="blind_styles_default">Default all</button>
+    <div class="_blind__dashboard__header">
+      <button id="blind_styles_default">Default all</button>
+      <button id="blind_quit">BLINDQUIT</button>
+    </div>
+
+    <div class="_blind__dashboard__fz">
+      <label for="blind_text_zoom">Font size <span>100</span> %</label>
+      <input type="range" name="" id="blind_text_zoom" min="100" max="125" value="100">
+    </div>
+
+    <div class="_blind__dashboard__scheme">
+      <button id="blind_scheme_default">Cheme: default</button>
+      <button id="blind_scheme_dark">Cheme: dark</button>
+      <button id="blind_scheme_blue">Cheme: blue</button>
+      <button id="blind_scheme_brown">Cheme: brown</button>
+      <button id="blind_scheme_greenBrown">Cheme: greenBrown</button>
+    </div>
+
+    <div class="_blind__dashboard__img">
+      <button id="blind_images_bw">B/W Images</button>
+      <button id="blind_images_remove">Remove Images</button>
+      <button id="blind_images_default">Default Images</button>
+    </div>
+
+  </div>
 
   <script data-number="19" src="blind.js"></script>
   <script data-number="20" src="test.js"></script>
