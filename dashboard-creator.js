@@ -1,108 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Document</title>
-</head>
-<body data-number="0">
+let createBlindDashboard = document.createElement('div');
+let createBlindDashboardStyles = document.createElement('style');
+createBlindDashboard.id = '_blind__dashboard';
 
-  <div data-number="1" style="border: none;">
-    <h1 data-number="2">h1 standart text</h1>
-    <h3 data-number="3">h3 standart text</h3>
-    <h3  data-number="4" class="title">h3 custom font size</h3>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa nesciunt enim, dolorum voluptas id, quidem iusto corporis quisquam nulla ex delectus, minima adipisci maiores mollitia! Eum itaque incidunt quam reprehenderit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa nesciunt enim, dolorum voluptas id, quidem iusto corporis quisquam nulla ex delectus, minima adipisci maiores mollitia! Eum itaque incidunt quam reprehenderit.</p>
-  </div>
+createBlindDashboardStyles.innerHTML=`
+#_blind__dashboard{
+  position: fixed;
+  background-color: #fff;
+  width: 100%;
+  height: 75vh;
+  max-height: 350px;
+  left: 0; bottom: -75vh;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.11);
+  transition: .4s ease-in-out;
+  overflow: visible;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+}
+._BLIND_ #_blind__dashboard{
+  opacity: 1;
+  pointer-events: all;
+}
+@media screen and (min-height: 500px) {
+  #_blind__dashboard{
+    bottom: -350px;
+  }
+}
+#_blind__dashboard.__open{
+  bottom: 0;
+}
+#_blind__dashboard ._blind__dashboard__container{
+  max-width: 1366px;
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+}
+#_blind__dashboard ._blind__dashboard__options{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+#_blind__dashboard ._blind__dashboard__options::-webkit-scrollbar{
+  opacity: 0;
+}
+#_blind__dashboard ._blind__dashboard__container ._blind__dashboard__icon{
+  position: absolute;
+  top: -75px; right: 0;
+  height: 75px;
+  width: 75px;
+  cursor: pointer;
+  background-color: #fff;
+  z-index: 1;
+}
+#_blind__dashboard ._blind__dashboard__container ._blind__dashboard__icon svg{
+  width: 100%;
+  height: 100%;
+}
+#_blind__dashboard.__open ._blind__dashboard__container ._blind__dashboard__icon svg ._BLIND_arrow_up{
+  opacity: 0;
+}
+#_blind__dashboard ._blind__dashboard__container ._blind__dashboard__icon svg ._BLIND_arrow_down{
+  opacity: 0;
+}
+#_blind__dashboard.__open ._blind__dashboard__container ._blind__dashboard__icon svg ._BLIND_arrow_down,
+#_blind__dashboard ._blind__dashboard__container ._blind__dashboard__icon svg ._BLIND_arrow_up{
+  opacity: 1;
+  transition: .3s ease-in-out;
+}
+#_blind__dashboard.__open ._blind__dashboard__container ._blind__dashboard__icon svg ._BLIND_set_sup,
+#_blind__dashboard.__open ._blind__dashboard__container ._blind__dashboard__icon svg ._BLIND_set_sub{
+  transition: .3s ease-in-out;
+}
+#_blind__dashboard *{
+  font-size: 16px;
+}
+#_blind__dashboard button,
+#_blind__dashboard ._blind__dashboard__fonts input{
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px 15px;
+}
+#_blind__dashboard ._blind__dashboard__header,
+#_blind__dashboard ._blind__dashboard__fonts,
+#_blind__dashboard ._blind__dashboard__scheme,
+#_blind__dashboard ._blind__dashboard__img{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 15px 0;
+  padding: 5px 15px;
+  gap: 10px;
+}
+#_blind__dashboard ._blind__dashboard__header{
+  justify-content: end;
+  gap: 15px;
+  flex-wrap: wrap-reverse;
+}
+#_blind__dashboard ._blind__dashboard__fonts div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  width: 20%;
+  min-width: 200px;
+}
+#_blind__dashboard ._blind__dashboard__fonts label{
+  pointer-events: none;
+}
+#_blind__dashboard ._blind__dashboard__fonts input{
+  padding: 0;
+  width: 100%;
+}
+#_blind__dashboard button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px solid #000;
+}
 
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-    <g>
-      <g>
-        <path d="M274.048,322.409h-20.694c-2.814-13.216-7.555-23.597-13.965-33.991l14.636-14.787c3.442-3.442,3.442-9.091,0-12.532    l-24.918-24.955c-3.442-3.442-9.017-3.461-12.459-0.019l-15.101,14.628c-10.394-6.41-20.926-11.162-34.142-13.976v-20.693    c0-4.87-3.029-8.215-7.899-8.215h-35.243c-4.87,0-9.723,3.345-9.723,8.215v20.693c-11.014,2.814-22.836,7.555-33.23,13.965    l-14.417-14.636c-3.442-3.442-8.903-3.442-12.345,0l-24.86,24.918c-3.442,3.442-3.414,9.017,0.028,12.459l14.651,14.944    c-6.413,10.394-11.138,20.766-13.952,33.983H9.723c-4.87,0-9.723,3.345-9.723,8.215v35.243c0,4.87,4.853,9.407,9.723,9.407h20.693    c2.814,11.014,7.555,22.995,13.965,33.389l-14.636,14.494c-3.442,3.442-3.442,8.944,0,12.386l24.918,24.88    c3.442,3.442,9.017,3.424,12.459-0.017l14.18-14.644c10.394,6.41,22.225,11.14,33.238,13.954v20.693    c0,4.87,4.853,9.407,9.723,9.407h35.243c4.87,0,7.899-4.537,7.899-9.407v-20.693c13.216-2.814,23.757-7.555,34.151-13.965    l14.864,14.636c3.442,3.442,9.131,3.442,12.573,0l24.976-24.918c3.442-3.442,3.47-9.017,0.026-12.459l-14.621-14.337    c6.41-10.394,11.166-22.384,13.98-33.398h20.694c4.87,0,7.899-4.537,7.899-9.407v-35.243    C281.946,325.754,278.918,322.409,274.048,322.409z M264.325,357.652h-18.172c-4.302,0-7.976,2.809-8.69,7.06    c-2.435,14.507-8.011,27.813-16.572,39.834c-2.495,3.502-2.1,8.221,0.946,11.267l13.5,13.461l-12.459,12.442l-13.5-13.509    c-3.037-3.046-7.83-3.455-11.34-0.951c-12.02,8.561-25.934,14.133-40.44,16.568c-4.251,0.714-7.813,4.386-7.813,8.688v19.68    h-17.622v-19.68c0-4.302-2.65-7.976-6.901-8.69c-14.507-2.435-27.736-8.011-39.756-16.572c-3.511-2.504-8.189-2.099-11.227,0.947    l-13.442,13.5l-12.433-12.459l13.517-13.5c3.046-3.037,3.446-7.83,0.951-11.34c-8.45-11.865-14.176-25.393-16.568-39.685    c-0.714-4.251-4.384-7.06-8.686-7.06H17.622V340.03h19.996c4.302,0,7.976-3.403,8.69-7.654    c2.392-14.292,8.122-28.27,16.572-40.135c2.495-3.511,2.099-8.376-0.947-11.414l-13.5-13.539l12.459-12.476l13.5,13.492    c3.037,3.046,7.83,3.444,11.341,0.942c11.865-8.452,25.236-14.184,39.528-16.576c4.251-0.714,6.901-4.39,6.901-8.692V225.49    h17.622v18.489c0,4.302,3.562,7.976,7.813,8.69c14.292,2.392,28.347,8.122,40.212,16.572c3.511,2.504,8.417,2.099,11.455-0.947    l13.556-13.5l12.487,12.459l-13.485,13.5c-3.046,3.046-3.433,7.839-0.938,11.34c8.561,12.02,14.139,25.776,16.574,40.283    c0.714,4.251,4.393,7.654,8.695,7.654h18.172V357.652z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M511.699,143.755l-9.12-34.047c-0.602-2.254-2.082-4.182-4.104-5.352c-2.031-1.161-4.44-1.471-6.686-0.878l-19.996,5.352    c-5.782-10.712-13.32-20.538-22.208-28.919l10.36-17.931c1.17-2.022,1.48-4.431,0.878-6.686c-0.602-2.254-2.082-4.182-4.104-5.352    l-30.528-17.622c-4.216-2.435-9.602-0.989-12.038,3.227L403.801,53.47c-11.693-3.493-23.972-5.146-36.147-4.758l-5.36-19.996    c-0.602-2.254-2.082-4.182-4.104-5.352c-2.031-1.17-4.448-1.48-6.686-0.878l-34.047,9.129c-2.263,0.602-4.182,2.082-5.352,4.104    c-1.17,2.022-1.48,4.431-0.878,6.685l5.361,19.988c-10.721,5.782-20.547,13.328-28.928,22.208l-17.932-10.36    c-2.03-1.17-4.448-1.48-6.685-0.878c-2.254,0.602-4.182,2.082-5.352,4.104l-17.622,30.528c-2.435,4.216-0.989,9.602,3.227,12.037    l17.923,10.351c-3.493,11.693-5.111,23.972-4.758,36.147l-19.996,5.361c-2.254,0.602-4.182,2.082-5.352,4.104    c-1.17,2.022-1.48,4.431-0.878,6.685l9.129,34.047c1.265,4.707,6.1,7.52,10.79,6.229l19.988-5.352    c5.791,10.73,13.328,20.547,22.208,28.928l-10.36,17.923c-1.17,2.022-1.48,4.431-0.878,6.686c0.602,2.254,2.082,4.182,4.104,5.352    l30.528,17.622c4.19,2.426,9.594,0.981,12.037-3.227l10.351-17.923c11.693,3.493,23.937,5.12,36.147,4.758l5.36,19.996    c1.05,3.941,4.612,6.531,8.501,6.531c0.757,0,1.523-0.094,2.289-0.301l34.047-9.121c2.254-0.602,4.182-2.082,5.352-4.104    c1.17-2.022,1.48-4.431,0.878-6.685l-5.352-19.997c10.73-5.791,20.547-13.328,28.928-22.208l17.923,10.36    c2.022,1.153,4.431,1.463,6.686,0.878c2.254-0.602,4.182-2.082,5.352-4.104l17.622-30.528c2.435-4.216,0.99-9.602-3.227-12.037    l-17.923-10.351c3.493-11.693,5.111-23.972,4.758-36.147l19.997-5.361C510.167,153.289,512.955,148.453,511.699,143.755z     M473.96,144.745c-4.156,1.11-6.901,5.068-6.488,9.353c1.385,14.429-0.568,29.272-5.653,42.91    c-1.506,4.036,0.12,8.561,3.846,10.712l16.529,9.542l-8.811,15.264l-16.529-9.551c-3.726-2.143-8.458-1.291-11.203,2.022    c-9.25,11.22-21.123,20.332-34.331,26.355c-3.915,1.79-5.971,6.144-4.853,10.299l4.939,18.439l-17.028,4.56l-4.939-18.439    c-1.041-3.88-4.552-6.531-8.501-6.531c-0.284,0-0.568,0.017-0.852,0.043c-14.464,1.368-29.281-0.576-42.91-5.653    c-4.044-1.506-8.553,0.112-10.712,3.846l-9.542,16.529l-15.264-8.811l9.551-16.529c2.151-3.726,1.299-8.458-2.022-11.203    c-11.22-9.25-20.332-21.123-26.355-34.331c-1.79-3.915-6.161-5.98-10.299-4.853l-18.43,4.939l-4.569-17.028l18.439-4.939    c4.156-1.11,6.901-5.068,6.488-9.353c-1.385-14.43,0.568-29.272,5.653-42.91c1.506-4.035-0.12-8.561-3.846-10.712l-16.529-9.542    l8.811-15.264l16.529,9.551c3.734,2.151,8.458,1.291,11.203-2.022c9.396-11.384,20.951-20.255,34.34-26.355    c3.915-1.79,5.971-6.144,4.853-10.299l-4.948-18.43l17.028-4.569l4.939,18.439c1.119,4.156,5.146,6.883,9.353,6.488    c14.455-1.359,29.281,0.576,42.91,5.653c4.035,1.514,8.553-0.112,10.712-3.846l9.542-16.529l15.264,8.811l-9.551,16.529    c-2.151,3.726-1.299,8.458,2.022,11.203c11.237,9.276,20.349,21.15,26.355,34.331c1.79,3.915,6.161,5.971,10.299,4.853    l18.439-4.939l4.56,17.028L473.96,144.745z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M141.885,313.002c-19.437,0-35.243,15.806-35.243,35.243c0,19.439,15.806,35.243,35.243,35.243    c19.437,0,35.243-15.804,35.243-35.243C177.129,328.808,161.322,313.002,141.885,313.002z M141.885,365.867    c-9.714,0-17.622-7.908-17.622-17.622c0-9.714,7.907-17.622,17.622-17.622c9.714,0,17.622,7.907,17.622,17.622    C159.507,357.96,151.599,365.867,141.885,365.867z"/>
-      </g>
-    </g>
-    <g>
-      <g>
-        <path d="M370.967,127.975c-19.437,0-35.243,15.806-35.243,35.243s15.806,35.243,35.243,35.243    c19.437,0,35.243-15.806,35.243-35.243S390.404,127.975,370.967,127.975z M370.967,180.84c-9.714,0-17.622-7.907-17.622-17.622    c0-9.714,7.907-17.622,17.622-17.622c9.714,0,17.622,7.907,17.622,17.622C388.588,172.932,380.681,180.84,370.967,180.84z"/>
-      </g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    <g>
-    </g>
-    </svg>
-
-  <div data-number="5">
-    <p data-number="6">p standart</p>
-    <p  data-number="7" class="paragraph">p custom font size</p>
-    <p  data-number="8" style="font-size: 28px; margin: 5px;" class="paragraph">p custom font size</p>
-  </div>
-
-  <div data-number="9">
-    <a data-number="10" href="#">a tag standart</a>
-    <a data-number="11" href="#" class="link">a tag custom font size</a>
-  </div>
-
-  <img src="https://shokan.edu.kz/media/images/0510221244_1.2e16d0ba.fill-730x360.jpg" alt="">
-
-  <div data-number="12" class="div">
-    <button data-number="13">button standart</button>
-    <button data-number="14" class="btn">button custom font size IMPORTANT</button>
-
-    <div data-number="15">
-      <footer data-number="16">
-        <div data-number="17" class="text_in_block">
-          footer important
-          <address data-number="18">
-            deep structure
-          </address>
-        </div>
-      </footer>
-    </div>
-
-  </div>
-
-  <button id="blind_run">RUNSTART</button>
-<!-- 
-  <div id="_blind__dashboard" class="">
-    <div class="_blind__dashboard__container">
+@media screen and (max-width: 700px){
+  #_blind__dashboard ._blind__dashboard__container ._blind__dashboard__icon{
+    height: 50px;
+    width: 50px;
+    top: -50px;
+  }
+  #_blind__dashboard ._blind__dashboard__scheme button span{
+    display: none;
+  }
+}
+`;
+createBlindDashboard.innerHTML=`
+<div class="_blind__dashboard__container">
 
       <div class="_blind__dashboard__icon">
         <svg class="_BLIND_no_invert" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75" fill="none">
@@ -158,36 +190,36 @@
       <div class="_blind__dashboard__options _blind__dashboard__container">
 
         <div class="_blind__dashboard__header">
-          <button id="blind_styles_default">Сбросить</button>
-          <button id="blind_quit">Выйти</button>
+          <button title="${createLocalization().reset}" id="blind_styles_default">${createLocalization().reset}</button>
+          <button title="${createLocalization().close}" id="blind_quit">${createLocalization().close}</button>
         </div>
     
         <div class="_blind__dashboard__fonts">
 
-          <div>
-            <label for="blind_text_zoom">Font size <span>100</span> %</label>
+          <div title="${createLocalization().fontsize}">
+            <label for="blind_text_zoom">${createLocalization().fontsize} <span>100</span> %</label>
             <input type="range" name="" id="blind_text_zoom" min="100" max="125" value="100">
           </div>
 
-          <div>
-            <label for="blind_text_kerning">Kerning <span>0</span></label>
+          <div title="${createLocalization().kerning}">
+            <label for="blind_text_kerning">${createLocalization().kerning} <span>0</span></label>
             <input type="range" min="0" max="10" value="0" name="" id="blind_text_kerning">
           </div>
 
-          <div>
-            <label for="blind_text_word_spacing">Word spacing <span>0</span></label>
+          <div title="${createLocalization().wordspacing}">
+            <label for="blind_text_word_spacing">${createLocalization().wordspacing} <span>0</span></label>
             <input type="range" min="0" max="25" value="0" name="" id="blind_text_word_spacing">
           </div>
 
-          <div>
-            <label for="blind_text_line_height">Line height <span>0</span></label>
+          <div title="${createLocalization().lineheight}">
+            <label for="blind_text_line_height">${createLocalization().lineheight} <span>0</span></label>
             <input type="range" min="100" max="250" value="100" name="" id="blind_text_line_height">
           </div>
 
         </div>
     
         <div class="_blind__dashboard__scheme">
-          <button title="Черным по белому" id="blind_scheme_default">
+          <button title="${createLocalization().blackonwhite}" id="blind_scheme_default">
             <svg class="_BLIND_no_invert" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <g clip-path="url(#clip0_2254_2035)">
               <rect width="30" height="30" fill="white"/>
@@ -200,10 +232,10 @@
               </defs>
             </svg>
             <span>
-              Черным по белому
+            ${createLocalization().blackonwhite}
             </span>
           </button>
-          <button title="Белым по черному" id="blind_scheme_dark">
+          <button title="${createLocalization().whiteonblack}" id="blind_scheme_dark">
             <svg class="_BLIND_no_invert" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <g clip-path="url(#clip0_2254_2035)">
               <rect width="30" height="30" fill="black"/>
@@ -216,10 +248,10 @@
               </defs>
             </svg>
             <span>
-              Белым по черному
+              ${createLocalization().whiteonblack}
             </span>
           </button>
-          <button title="Тёмно-синим по голубому" id="blind_scheme_blue">
+          <button title="${createLocalization().darkblueonblue}" id="blind_scheme_blue">
             <svg class="_BLIND_no_invert" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <g clip-path="url(#clip0_2254_2035)">
               <rect width="30" height="30" fill="#9DD1FF"/>
@@ -232,10 +264,10 @@
               </defs>
             </svg>
             <span>
-              Тёмно-синим по голубому
+              ${createLocalization().darkblueonblue}
             </span>
           </button>
-          <button title="Коричневым по бежевому" id="blind_scheme_brown">
+          <button title="${createLocalization().brownonbeige}" id="blind_scheme_brown">
             <svg class="_BLIND_no_invert" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <g clip-path="url(#clip0_2254_2035)">
               <rect width="30" height="30" fill="#F7F3D6"/>
@@ -248,10 +280,10 @@
               </defs>
             </svg>
             <span>
-              Коричневым по бежевому
+              ${createLocalization().brownonbeige}
             </span>
           </button>
-          <button title="Зеленым по тёмно-коричневому" id="blind_scheme_greenBrown">
+          <button title="${createLocalization().greenondarkbrown}" id="blind_scheme_greenBrown">
             <svg class="_BLIND_no_invert" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <g clip-path="url(#clip0_2254_2035)">
               <rect width="30" height="30" fill="#3B2716"/>
@@ -264,40 +296,98 @@
               </defs>
             </svg>
             <span>
-              Зеленым по тёмно-коричневому
+            ${createLocalization().greenondarkbrown}
             </span>
           </button>
         </div>
     
         <div class="_blind__dashboard__img">
-          <button title="Чёрно-белые фото" id="blind_images_bw">
+          <button title="${createLocalization().bwpics}" id="blind_images_bw">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M27 6.6C27 5.64522 26.6207 4.72955 25.9456 4.05442C25.2705 3.37928 24.3548 3 23.4 3H6.6C5.64522 3 4.72955 3.37928 4.05441 4.05442C3.37928 4.72955 3 5.64522 3 6.6V14.4C3.0001 14.5012 3.013 14.602 3.0384 14.7C3.013 14.798 3.0001 14.8988 3 15V23.4C3 24.3548 3.37928 25.2705 4.05441 25.9456C4.72955 26.6207 5.64522 27 6.6 27H23.4C24.3548 27 25.2705 26.6207 25.9456 25.9456C26.6207 25.2705 27 24.3548 27 23.4V19.8C26.9999 19.6988 26.987 19.598 26.9616 19.5C26.987 19.402 26.9999 19.3012 27 19.2V6.6ZM23.4072 18.396C23.8248 18.4032 24.2232 18.4224 24.6 18.4512V6.6C24.6 6.28174 24.4736 5.97652 24.2485 5.75147C24.0235 5.52643 23.7183 5.4 23.4 5.4H6.6C6.28174 5.4 5.97651 5.52643 5.75147 5.75147C5.52643 5.97652 5.4 6.28174 5.4 6.6V13.8192C10.5564 13.986 14.28 15.228 16.896 16.9668C15.9048 17.3184 14.796 17.8188 13.7088 18.474C12.03 19.482 10.3236 20.898 9.1752 22.7736C9.09294 22.908 9.03796 23.0573 9.0134 23.213C8.98884 23.3687 8.99519 23.5276 9.03207 23.6809C9.06896 23.8341 9.13566 23.9785 9.22837 24.106C9.32108 24.2334 9.43798 24.3413 9.5724 24.4236C9.70682 24.5059 9.85613 24.5608 10.0118 24.5854C10.1675 24.61 10.3264 24.6036 10.4797 24.5667C10.6329 24.5298 10.7773 24.4631 10.9048 24.3704C11.0322 24.2777 11.1401 24.1608 11.2224 24.0264C12.1056 22.5828 13.476 21.4128 14.9448 20.5308C16.4112 19.65 17.9028 19.1004 18.9372 18.8604C20.3943 18.5276 21.8864 18.3721 23.3808 18.3972H23.4072V18.396ZM21.0264 8.3856C20.4915 8.00876 19.8543 7.80443 19.2 7.8C18.708 7.8 17.9964 7.938 17.3736 8.3856C16.6896 8.8776 16.2 9.6888 16.2 10.8C16.2 11.9112 16.6896 12.7212 17.3736 13.2132C17.9083 13.5905 18.5456 13.7952 19.2 13.8C19.692 13.8 20.4036 13.662 21.0264 13.2132C21.7104 12.7212 22.2 11.9124 22.2 10.8C22.2 9.6888 21.7104 8.8788 21.0264 8.3856Z" fill="black"/>
             </svg>
-            Чёрно-белые фото
+            ${createLocalization().removepics}
           </button>
-          <button title="Удалить изображения" id="blind_images_remove">
+          <button title="${createLocalization().bwpics}" id="blind_images_remove">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <path d="M3.121 20.3385L12.392 16.3652L17.6897 18.7731M21.5028 27.1209L24.3119 24.3118M27.121 21.5027L24.3119 24.3118M24.3119 24.3118L21.5028 21.5027M24.3119 24.3118L27.121 27.1209M20.3386 12.392C19.6361 12.392 18.9623 12.1129 18.4656 11.6161C17.9688 11.1194 17.6897 10.4456 17.6897 9.7431C17.6897 9.04058 17.9688 8.36683 18.4656 7.87007C18.9623 7.37331 19.6361 7.09424 20.3386 7.09424C21.0411 7.09424 21.7149 7.37331 22.2116 7.87007C22.7084 8.36683 22.9875 9.04058 22.9875 9.7431C22.9875 10.4456 22.7084 11.1194 22.2116 11.6161C21.7149 12.1129 21.0411 12.392 20.3386 12.392V12.392Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M16.3653 26.9608H3.91566C3.7049 26.9608 3.50278 26.8771 3.35375 26.7281C3.20472 26.5791 3.121 26.3769 3.121 26.1662V3.91575C3.121 3.705 3.20472 3.50287 3.35375 3.35384C3.50278 3.20482 3.7049 3.12109 3.91566 3.12109H26.1661C26.3768 3.12109 26.579 3.20482 26.728 3.35384C26.877 3.50287 26.9607 3.705 26.9607 3.91575V16.3654" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Удалить изображения
+            ${createLocalization().removepics}
           </button>
-          <button title="Включить изображения" id="blind_images_default">
+          <button title="${createLocalization().turnonimages}" id="blind_images_default">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
               <path d="M15.6316 25.7368H3.75789C3.55689 25.7368 3.36412 25.657 3.22198 25.5149C3.07985 25.3727 3 25.18 3 24.9789V3.75789C3 3.55689 3.07985 3.36412 3.22198 3.22198C3.36412 3.07985 3.55689 3 3.75789 3H24.9789C25.18 3 25.3727 3.07985 25.5149 3.22198C25.657 3.36412 25.7368 3.55689 25.7368 3.75789V15.6316" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M3 19.4211L11.8421 15.6317L18.7895 18.7896M19.4211 23.2106H23.2105M27 23.2106H23.2105M23.2105 23.2106V19.4211M23.2105 23.2106V27.0001M19.4211 11.8422C18.751 11.8422 18.1085 11.576 17.6347 11.1022C17.1609 10.6285 16.8947 9.98589 16.8947 9.31587C16.8947 8.64585 17.1609 8.00327 17.6347 7.52949C18.1085 7.05572 18.751 6.78955 19.4211 6.78955C20.0911 6.78955 20.7337 7.05572 21.2074 7.52949C21.6812 8.00327 21.9474 8.64585 21.9474 9.31587C21.9474 9.98589 21.6812 10.6285 21.2074 11.1022C20.7337 11.576 20.0911 11.8422 19.4211 11.8422V11.8422Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Включить изображения
+            ${createLocalization().turnonimages}
           </button>
         </div>
 
       </div>
 
     </div>
-  </div> -->
+`;
+document.body.prepend(createBlindDashboard);
+document.body.append(createBlindDashboardStyles);
 
-  <script data-number="20" src="dashboard-creator.js"></script>
-  <script data-number="19" src="blind.js"></script>
-</body>
-</html>
+function createLocalization() {
+  const ru = {
+    reset: 'Сбросить',
+    close: 'Выйти',
+    fontsize: 'Размер шрифта',
+    kerning: 'Кёрнинг',
+    wordspacing: 'Пространство между слов',
+    lineheight: 'Межстрочный интервал',
+    blackonwhite: 'Чёрным по белому',
+    whiteonblack: 'Белым по чёрному',
+    darkblueonblue: 'Тёмно-синим по голубому',
+    brownonbeige: 'Коричневым по бежевому',
+    greenondarkbrown: 'Зеленым по тёмно-коричневому',
+    bwpics: 'Чёрно-белые фото',
+    removepics: 'Удалить изображения',
+    turnonimages: 'Показать изображения'
+  },
+  en = {
+    reset: 'Reset',
+    close: 'Close',
+    fontsize: 'Font-size',
+    kerning: 'Kerning',
+    wordspacing: 'Word-spacing',
+    lineheight: 'Line-height',
+    blackonwhite: 'Black on white',
+    whiteonblack: 'White on black',
+    darkblueonblue: 'Dark blue on blue',
+    brownonbeige: 'Brown on beige',
+    greenondarkbrown: 'Green on dark brown',
+    bwpics: 'Black & white photos',
+    removepics: 'Remove images',
+    turnonimages: 'Turn on images'
+  },
+  kk = {
+    reset: 'Қалпына келтіру',
+    close: 'Шығу',
+    fontsize: 'Қаріп өлшемі',
+    kerning: 'Қарғылау',
+    wordspacing: 'Сөздер арасындағы кеңістік',
+    lineheight: 'Жол аралығы',
+    blackonwhite: 'Аққа қара',
+    whiteonblack: 'Қарада ақ',
+    darkblueonblue: 'Көк үстінде қою көк',
+    brownonbeige: 'Бежевыйдағы қоңыр',
+    greenondarkbrown: 'Қара қоңырда жасыл',
+    bwpics: 'Ақ-қара фотосуреттер',
+    removepics: 'Суреттерді жою',
+    turnonimages: 'Суреттерді көрсету'
+  };
+  let currentLanguage = window.location.href.split('/')[3].toLowerCase();
+    if (currentLanguage == 'kk') {
+      return kk;
+    } else if(currentLanguage == 'en') {
+      return en;
+    } else {
+      return ru;
+    }
+  
+}
+
