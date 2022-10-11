@@ -25,7 +25,9 @@ window.addEventListener('DOMContentLoaded', ()=> {
   buttonSchemeBrown = document.querySelector('#blind_scheme_brown'),
   buttonSchemeGreenBrown = document.querySelector('#blind_scheme_greenBrown'),
 
-  allButtons = [textZoomer, zoomValueIndicator, textKerningInput, kerningValueIndicator, textWordSpacingInput, WordSpacingValueIndicator, textLineHeightInput, lineHeightValueIndicator, buttonDefault, buttonImagesBW, buttonImagesRemove, buttonImagesDefault, buttonSchemeDefault, buttonSchemeDark, buttonSchemeBlue, buttonSchemeBrown, buttonSchemeGreenBrown];
+  textVoiceButton = document.querySelector('#voice_text'),
+
+  allButtons = [textVoiceButton, textZoomer, zoomValueIndicator, textKerningInput, kerningValueIndicator, textWordSpacingInput, WordSpacingValueIndicator, textLineHeightInput, lineHeightValueIndicator, buttonDefault, buttonImagesBW, buttonImagesRemove, buttonImagesDefault, buttonSchemeDefault, buttonSchemeDark, buttonSchemeBlue, buttonSchemeBrown, buttonSchemeGreenBrown];
   
   function runBlind() {
     localStorage.setItem('_BLIND_start','true');
@@ -33,8 +35,9 @@ window.addEventListener('DOMContentLoaded', ()=> {
     textZoom(localStorage.getItem('_BLIND_fontZoomer'));
     textKerning(localStorage.getItem('_BLIND_kerning'));
     wordSpacing(localStorage.getItem('_BLIND_word-spaicing'));
-    changeImage(localStorage.getItem('_BLIND_images'));
+    changeImage(localStorage.getItem('_BLIND_images') || 'display: none');
     changeColorScheme(checkOptionLS('#000', '_BLIND_textColor') , checkOptionLS('#fff', '_BLIND_backgroundColor'));
+    voiceText(localStorage.getItem('_BLIND_voiceText'));
     switchButtons(true);
     blindRun.setAttribute('disabled', 'true');
     blindQuit.removeAttribute('disabled');
@@ -48,9 +51,33 @@ window.addEventListener('DOMContentLoaded', ()=> {
     kerningValueIndicator.textContent = localStorage.getItem('_BLIND_fontZoomer') || 0;
     WordSpacingValueIndicator.textContent = localStorage.getItem('_BLIND_word-spaicing') || 0;
     switchButtons(false);
+    voiceText(false);
+    changeImage('default');
+    localStorage.removeItem('_BLIND_images');
     blindRun.removeAttribute('disabled');
     blindQuit.setAttribute('disabled', 'true');
     dashboard.classList.remove('__open');
+  }
+
+  function resetToDefault() {
+    changeImage('display: none');
+    localStorage.removeItem('_BLIND_textColor');
+    localStorage.removeItem('_BLIND_backgroundColor');
+    localStorage.removeItem('_BLIND_fontZoomer');
+    localStorage.removeItem('_BLIND_kerning');
+    localStorage.removeItem('_BLIND_word-spaicing');
+    localStorage.removeItem('_BLIND_line-height');
+    removeBlindStyles();
+    voiceText(false);
+    textZoomer.value = localStorage.getItem('_BLIND_fontZoomer') || 100;
+    zoomValueIndicator.textContent = localStorage.getItem('_BLIND_fontZoomer') || 100;
+    textKerningInput.value = localStorage.getItem('_BLIND_kerning') || 0;
+    kerningValueIndicator.textContent = localStorage.getItem('_BLIND_kerning') || 0;
+    textWordSpacingInput.value = localStorage.getItem('_BLIND_word-spaicing') || 0;
+    WordSpacingValueIndicator.textContent = localStorage.getItem('_BLIND_word-spaicing') || 0;
+    textLineHeightInput.value = localStorage.getItem('_BLIND_line-height') || 100;
+    lineHeightValueIndicator.textContent = localStorage.getItem('_BLIND_line-height') || 100;
+    changeColorScheme(checkOptionLS('#000', '_BLIND_textColor') , checkOptionLS('#fff', '_BLIND_backgroundColor'));
   }
 
   function switchButtons(enable) {
@@ -177,26 +204,20 @@ window.addEventListener('DOMContentLoaded', ()=> {
       });
     }
   }
-  
-  function resetToDefault() {
-    changeImage('default');
-    localStorage.removeItem('_BLIND_textColor');
-    localStorage.removeItem('_BLIND_backgroundColor');
-    localStorage.removeItem('_BLIND_images');
-    localStorage.removeItem('_BLIND_fontZoomer');
-    localStorage.removeItem('_BLIND_kerning');
-    localStorage.removeItem('_BLIND_word-spaicing');
-    localStorage.removeItem('_BLIND_line-height');
-    removeBlindStyles();
-    textZoomer.value = localStorage.getItem('_BLIND_fontZoomer') || 100;
-    zoomValueIndicator.textContent = localStorage.getItem('_BLIND_fontZoomer') || 100;
-    textKerningInput.value = localStorage.getItem('_BLIND_kerning') || 0;
-    kerningValueIndicator.textContent = localStorage.getItem('_BLIND_kerning') || 0;
-    textWordSpacingInput.value = localStorage.getItem('_BLIND_word-spaicing') || 0;
-    WordSpacingValueIndicator.textContent = localStorage.getItem('_BLIND_word-spaicing') || 0;
-    textLineHeightInput.value = localStorage.getItem('_BLIND_line-height') || 100;
-    lineHeightValueIndicator.textContent = localStorage.getItem('_BLIND_line-height') || 100;
-    changeColorScheme(checkOptionLS('#000', '_BLIND_textColor') , checkOptionLS('#fff', '_BLIND_backgroundColor'));
+
+  function robotVoice(e) {
+    speechSynthesis.speak(new SpeechSynthesisUtterance(e.target.textContent));
+  }
+  function voiceText(bool) {
+    if (bool) {
+      document.addEventListener('click', robotVoice);
+      textVoiceButton.setAttribute('data-voice', 'true');
+      localStorage.setItem('_BLIND_voiceText','true');
+    } else {
+      document.removeEventListener("click", robotVoice);
+      textVoiceButton.removeAttribute('data-voice');
+      localStorage.removeItem('_BLIND_voiceText');
+    }
   }
   
 localStorage.setItem('copyright', `title: Универсальный плагин для сайтов "Версия для слабовидящих",
@@ -272,7 +293,13 @@ rep: https://github.com/coopwork/blind.js`);
   });
   buttonImagesDefault.addEventListener('click', ()=>{
     changeImage('default');
-    localStorage.removeItem('_BLIND_images');
+  });
+  textVoiceButton.addEventListener('click', ()=>{
+    if (!textVoiceButton.getAttribute('data-voice')) {
+      voiceText(true);
+    } else {
+      voiceText(false);
+    }
   });
   buttonDefault.addEventListener('click', resetToDefault);
   blindRun.addEventListener('click', ()=>{
