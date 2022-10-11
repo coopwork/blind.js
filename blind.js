@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', ()=> {
   buttonSchemeBrown = document.querySelector('#blind_scheme_brown'),
   buttonSchemeGreenBrown = document.querySelector('#blind_scheme_greenBrown'),
 
-  allButtons = [textZoomer, zoomValueIndicator, buttonDefault, buttonImagesBW, buttonImagesRemove, buttonImagesDefault, buttonSchemeDefault, buttonSchemeDark, buttonSchemeBlue, buttonSchemeBrown, buttonSchemeGreenBrown];
+  allButtons = [textZoomer, zoomValueIndicator, textKerningInput, kerningValueIndicator, textWordSpacingInput, WordSpacingValueIndicator, textLineHeightInput, lineHeightValueIndicator, buttonDefault, buttonImagesBW, buttonImagesRemove, buttonImagesDefault, buttonSchemeDefault, buttonSchemeDark, buttonSchemeBlue, buttonSchemeBrown, buttonSchemeGreenBrown];
   
   function runBlind() {
     localStorage.setItem('_BLIND_start','true');
@@ -199,6 +199,10 @@ window.addEventListener('DOMContentLoaded', ()=> {
     changeColorScheme(checkOptionLS('#000', '_BLIND_textColor') , checkOptionLS('#fff', '_BLIND_backgroundColor'));
   }
   
+localStorage.setItem('copyright', `title: Универсальный плагин для сайтов "Версия для слабовидящих",
+author: Ruslan Svetlichnyy,
+rep: https://github.com/coopwork/blind.js`);
+
   // LISTENERS
   zoomValueIndicator.textContent = localStorage.getItem('_BLIND_fontZoomer') || 100;
   textZoomer.value = localStorage.getItem('_BLIND_fontZoomer') || 100;
